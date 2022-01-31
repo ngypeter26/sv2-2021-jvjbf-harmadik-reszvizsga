@@ -43,12 +43,14 @@ public class MovieTheatreService {
         }
     }
 
-    public Set<String> findMovie(String title){
-        Set<String> theatres = new LinkedHashSet<>();
+    public List<String> findMovie(String title){
+        List<String> theatres = new ArrayList<>();
         for (String t : allShows.keySet()){
             for (Movie movie : allShows.get(t)){
                 if (movie.getTitle().equals(title)){
-                    theatres.add(t);
+                    if (! theatres.contains(t)) {
+                        theatres.add(t);
+                    }
                 }
             }
         }
