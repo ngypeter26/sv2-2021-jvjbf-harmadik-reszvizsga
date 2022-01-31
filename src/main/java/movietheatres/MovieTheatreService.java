@@ -7,11 +7,11 @@ import java.time.LocalTime;
 import java.util.*;
 
 public class MovieTheatreService {
-    private Map<String,List<Movie>> shows = new HashMap<>();
-    private Map<String,List<Movie>> allShows = new HashMap<>();
+    private Map<String,Set<Movie>> shows = new HashMap<>();
+    private Map<String,List<Movie>> allShows = new LinkedHashMap<>();
 
 
-    public Map<String, List<Movie>> getShows() {
+    public Map<String, Set<Movie>> getShows() {
         return shows;
     }
 
@@ -26,7 +26,7 @@ public class MovieTheatreService {
     }
 
     private void load(List<String> lines) {
-        List<Movie>  actualMovieList = new ArrayList<>();
+
         for (String s : lines) {
             String[] temp1 = s.split("-");
             String actualTheatre = temp1[0];
@@ -34,12 +34,12 @@ public class MovieTheatreService {
             Movie actualMovie = new Movie(temp2[0],LocalTime.parse(temp2[1]));
 
             if (shows.containsKey(actualTheatre)){
-                actualMovieList = shows.get(actualTheatre);
-//                shows.remove(actualTheatre);
+                shows.get(actualTheatre).add(actualMovie);
+            }else{
+                Set<Movie>  actualMovieList = new HashSet<>();
+                actualMovieList.add(actualMovie);
+                shows.put(actualTheatre, actualMovieList);
             }
-            actualMovieList.add(actualMovie);
-
-            shows.put(actualTheatre, actualMovieList);
         }
     }
 
@@ -61,7 +61,7 @@ public class MovieTheatreService {
         }
         LocalTime latestTime = LocalTime.parse("00:00");
         for (String t : allShows.keySet()){
-            for (Movie movie : shows.get(t)){
+            for (Movie movie : allShows.get(t)){
                 if (movie.getTitle().equals(title) && movie.getStartTime().isAfter(latestTime)){
                     latestTime = movie.getStartTime();
                 }

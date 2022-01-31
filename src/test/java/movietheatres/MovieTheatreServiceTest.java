@@ -25,11 +25,8 @@ public class MovieTheatreServiceTest {
 
     @Test
     void testReadFromFile() {
-        System.out.println(mvs.getShows().get("Puskin").stream().map(Movie::getTitle).toList());
-        System.out.println(mvs.getShows().get("WestEnd").stream().map(Movie::getTitle).toList());
-        System.out.println(mvs.getShows().get("Duna Plaza").stream().map(Movie::getTitle).toList());
         assertEquals(3, mvs.getShows().keySet().size());
-//        assertEquals(List.of("WestEnd", "Duna Plaza", "Puskin"), new ArrayList<>(mvs.getShows().keySet()));
+        assertEquals(List.of("WestEnd", "Duna Plaza", "Puskin"), new ArrayList<>(mvs.getShows().keySet()));
         assertEquals(List.of("Paw Petrol", "Lord Of The Rings"), mvs.getShows().get("Puskin").stream().map(Movie::getTitle).toList());
 
     }
