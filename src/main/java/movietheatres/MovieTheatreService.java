@@ -7,7 +7,7 @@ import java.time.LocalTime;
 import java.util.*;
 
 public class MovieTheatreService {
-    private Map<String,Set<Movie>> shows = new HashMap<>();
+    private Map<String,Set<Movie>> shows = new LinkedHashMap<>();
     private Map<String,List<Movie>> allShows = new LinkedHashMap<>();
 
 
