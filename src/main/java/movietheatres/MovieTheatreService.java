@@ -44,7 +44,7 @@ public class MovieTheatreService {
     }
 
     public Set<String> findMovie(String title){
-        Set<String> theatres = new HashSet<>();
+        Set<String> theatres = new LinkedHashSet<>();
         for (String t : allShows.keySet()){
             for (Movie movie : allShows.get(t)){
                 if (movie.getTitle().equals(title)){
